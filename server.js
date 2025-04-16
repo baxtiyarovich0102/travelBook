@@ -7,9 +7,10 @@ connectdB()
 
 const app = express()
 
-app.get('/', (req,res) => {
-    res.send("Wassup")
-})
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+
+app.use("/api/travel", require("./routes/travel.route"))
 
 const PORT = process.env.PORT
 
