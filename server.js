@@ -1,4 +1,5 @@
 const express = require("express")
+const cors = require("cors")
 const connectdB = require("./config/db")
 require('dotenv').config()
 
@@ -9,6 +10,8 @@ const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+
+app.use(cors({origin: "http://localhost:3000"}))
 
 app.use("/api/travel", require("./routes/travel.route"))
 
