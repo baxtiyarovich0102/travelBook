@@ -4,7 +4,7 @@ const getAllTravels = async (req, res) => {
     try {
         const travels = await Travel.find()
 
-        res.status(200).json({message: "Success", travels: travels})
+        res.status(200).json({message: "Success", travels: travels.reverse()})
     } catch (err) {
         res.send(err)
     }
