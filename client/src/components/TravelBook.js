@@ -4,11 +4,19 @@ import { Link } from 'react-router-dom'
 
 const TravelBook = () => {
   const [traveBook, setTravelBook] = useState([])
+  const [id, setId] = useState('')
 
   const fetchData = async () => {
     const {data} = await axios.get("http://localhost:5000/api/travel")
     setTravelBook(data.travels)
   }
+// sacasc
+  const deleteHandler = async (e) => {
+    e.preventDefault()
+    await axios.delete(`http://localhost:5000/api/travel/${id}`)
+    fetchData()
+  }
+
   useEffect(() => {
     fetchData()
   }, [])
@@ -23,8 +31,8 @@ const TravelBook = () => {
             <p className="card-text">{tb.desc}</p>
             <div className='d-flex justify-content-start'>
               <Link className='btn btn-primary' to={`/update/${tb._id}`} >Update</Link>
-              <form>
-                <button type='submit' className='btn btn-danger mx-3'>Delete</button>
+              <form onSubmit={deleteHandler}>
+                <button type='submit' className='btn btn-danger mx-3' onClick={() => setId(tb._id)}>Delete</button>
               </form>
             </div>
           </div>
